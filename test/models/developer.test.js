@@ -107,21 +107,29 @@ describe( "Developer", function(){
 		var times = 10;
 
 	  before( function( done ){    
-	  	createSimilarDevelop( baseScore, similarCount, function( ){
-	  		similarCount--;
-	  		if ( similarCount === 0 ) { 
-			  	createDifferentDevelop( baseScore, times, function( dev ){
-			  		times--;
-			  		if ( times === 0 ) { 
-				  		dev.findSimilarScores( function( err, devs ){
-				  			result = devs;
-								done();
-							});
-				  	}
-			  	});
-			  };
-	  	});
+	  	Developer.remove({}, function( ) { 
+		  	createSimilarDevelop( baseScore, similarCount, function( ){
+		  		similarCount--;
+		  		if ( similarCount === 0 ) { 
+				  	createDifferentDevelop( baseScore, times, function( dev ){
+				  		times--;
+				  		if ( times === 0 ) { 
+					  		dev.findSimilarScores( function( err, devs ){
+					  			result = devs;
+									done();
+								});
+					  	}
+				  	});
+				  };
+		  	});
+		  });
 	  });
+
+	  after( function( done ){    
+	    //delete all the Developer records    
+	    Developer.remove({}, function( ) { done(); });
+	  });
+
 
 		it('should return ' + similarCount + ' developers' , function ( ) {
 			expect( result.length ).to.equal( similarDevelopers );

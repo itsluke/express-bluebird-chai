@@ -1,6 +1,6 @@
 ## Introduction
 
-Katora Living Case Study Project v2
+Quick Boilerplate for Express App with Bluebird & Chai
 
 ### Getting up and running
 
@@ -9,10 +9,10 @@ npm install
 bower install
 ```
 
-for development run
+for tests
 
 ```
-grunt dev
+make test
 ```
 
 to launch the app
