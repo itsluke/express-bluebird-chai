@@ -1,6 +1,6 @@
 ## Introduction
 
-Quick Boilerplate for Express App with Bluebird & Chai
+Katora Living Case Study Project v2
 
 ### Getting up and running
 
