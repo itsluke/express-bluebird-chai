@@ -1,54 +1,54 @@
 'use strict';
 
-module.exports = function (grunt) {
+module.exports = function ( grunt ) {
     // show elapsed time at the end
-    require('time-grunt')(grunt);
+    require( 'time-grunt' )( grunt );
     // load all grunt tasks
-    require('load-grunt-tasks')(grunt);
+    require( 'load-grunt-tasks' )( grunt );
 
     grunt.initConfig({
         // Watch Config
         watch: {
-            files: ['views/**/*'],
+            files: [ 'src/views/**/*' ],
             options: {
                 livereload: 38877
             },
             scripts: {
                 files: [
                     'assets/scripts/**/*.js',
-                    'lib/**/*.js',
-                    'helpers/**/*.js',
-                    'models/**/*.js',
-                    'routes/**/*.js'
-                ],
+                    'src/lib/**/*.js',
+                    'src/helpers/**/*.js',
+                    'src/models/**/*.js',
+                    'src/routes/**/*.js'
+                ]
             },
             css: {
                 files: [
                     'assets/styles/**/*.css'
-                ],
+                ]
             },
             html: {
                 files: [
-                    'views/styles/**/*.hbs',
-                    'views/styles/**/*.handlebars'
-                ],
+                    'src/views/styles/**/*.hbs',
+                    'src/views/styles/**/*.handlebars'
+                ]
             },
             sass: {
-                files: ['assets/styles/**/*.scss'],
-                tasks: ['sass:dev']
+                files: [ 'assets/styles/**/*.scss' ],
+                tasks: [ 'sass:dev' ]
             },
             images: {
                 files: [
                     'assets/images/**/*.{png,jpg,jpeg,webp}'
-                ],
+                ]
             },
             express: {
                 files:  [
-                    'app.js',
-                    'lib/**/*.js',
-                    'helpers/**/*.js',
-                    'routes/**/*.js',
-                    'models/**/*.js',
+                    'src/app.js',
+                    'src/lib/**/*.js',
+                    'src/helpers/**/*.js',
+                    'src/routes/**/*.js',
+                    'src/models/**/*.js',
                     '!**/node_modules/**',
                     '!Gruntfile.js'
                 ],
@@ -59,12 +59,12 @@ module.exports = function (grunt) {
             },
             simplemocha: {
                 files: [
-                    'app.js',
-                    'test/**/*.js',
-                    'lib/**/*.js',
-                    'helpers/**/*.js',
-                    'routes/**/*.js',
-                    'models/**/*.js',
+                    'src/app.js',
+                    'src/test/**/*.js',
+                    'src/lib/**/*.js',
+                    'src/helpers/**/*.js',
+                    'src/routes/**/*.js',
+                    'src/models/**/*.js'
                 ],
                 tasks:  [ 'simplemocha' ]
             }
@@ -72,41 +72,57 @@ module.exports = function (grunt) {
 
         simplemocha: {
             options: {
-                globals: ['should'],
+                globals: [ 'should' ],
                 timeout: 3000,
                 ignoreLeaks: false,
                 ui: 'bdd',
                 reporter: 'tap'
             },
 
-            all: { src: ['test/**/*.js'] }
+            all: { src: [ 'test/**/*.js' ] }
         },
 
         // Clean Config
         clean: {
             dist: {
-                files: [{
+                files: [ {
                     dot: true,
                     src: [
                         '.tmp',
                         'dist/*',
                         '!dist/.git*'
                     ]
-                }]
+                } ]
             },
-            server: ['.tmp'],
+            server: [ '.tmp' ]
         },
 
         // Hint Config
-        jshint: {
+        eslint: {
             options: {
-                jshintrc: '.jshintrc'
+                configFile: 'eslint.json'
             },
             all: [
                 'Gruntfile.js',
                 'assets/scripts/**/*.js',
                 '!assets/scripts/vendor/*',
-                'test/spec/**/*.js'
+                'src/lib/**/*.js',
+                'src/helpers/**/*.js',
+                'src/models/**/*.js',
+                'src/routes/**/*.js',
+                'test/**/*.js'
+            ],
+            test: [
+                'test/**/*.js'
+            ],
+            base: [
+                'assets/scripts/**/*.js',
+                '!assets/scripts/vendor/*',
+                'src/app.js',
+                'src/lib/**/*.js',
+                'src/helpers/**/*.js',
+                'src/models/**/*.js',
+                'src/routes/**/*.js'
             ]
         },
 
@@ -120,13 +136,13 @@ module.exports = function (grunt) {
                     style: 'expanded',
                     lineComments: true
                 },
-                files: [{
+                files: [ {
                     expand: true,
                     cwd: 'assets/styles/sass',
                     dest: 'assets/styles',
-                    src: ['screen.scss'],
+                    src: [ 'screen.scss' ],
                     ext: '.css'
-                }]
+                } ]
             }
         },
 
@@ -137,7 +153,7 @@ module.exports = function (grunt) {
             },
             dev: {
                 options: {
-                    script: 'app.js'
+                    script: 'src/app.js'
                 }
             }
         },
@@ -156,7 +172,7 @@ module.exports = function (grunt) {
                 files: {
                     src: [
                         'dist/assets/scripts/**/*.js',
-                        'lib/**/*.js',
+                        'dist/lib/**/*.js',
                         'dist/assets/styles/**/*.css',
                         'dist/assets/images/**/*.{png,jpg,jpeg,gif,webp}',
                         'dist/assets/styles/fonts/**/*.*'
@@ -170,38 +186,38 @@ module.exports = function (grunt) {
             options: {
                 dest: 'dist/assets'
             },
-            html: ['assets/{,*/}*.html', 'views/**/*.handlebars']
+            html: [ 'assets/{,*/}*.html', 'views/**/*.handlebars' ]
         },
         usemin: {
             options: {
-                dirs: ['dist/assets'],
-                basedir: 'dist/assets',
+                dirs: [ 'dist/assets' ],
+                basedir: 'dist/assets'
             },
-            html: ['dist/assets/{,*/}*.html', 'dist/views/**/*.handlebars'],
-            css: ['dist/assets/styles/{,*/}*.css']
+            html: [ 'dist/assets/{,*/}*.html', 'dist/views/**/*.handlebars' ],
+            css: [ 'dist/assets/styles/{,*/}*.css' ]
         },
 
         // Imagemin Config
         imagemin: {
             dist: {
-                files: [{
+                files: [ {
                     expand: true,
                     cwd: 'assets/images',
                     src: '**/*.{png,jpg,jpeg}',
                     dest: 'dist/assets/images'
-                }]
+                } ]
             }
         },
 
         // SVGmin Config
         svgmin: {
             dist: {
-                files: [{
+                files: [ {
                     expand: true,
                     cwd: 'assets/images',
                     src: '{,*/}*.svg',
                     dest: 'dist/assets/images'
-                }]
+                } ]
             }
         },
 
@@ -237,12 +253,12 @@ module.exports = function (grunt) {
                     removeEmptyAttributes: true,
                     removeOptionalTags: true*/
                 },
-                files: [{
+                files: [ {
                     expand: true,
                     cwd: 'assets',
                     src: '*.html',
                     dest: 'dist/assets'
-                }]
+                } ]
             }
         },
 
@@ -250,7 +266,7 @@ module.exports = function (grunt) {
         // Put files not handled in other tasks here
         copy: {
             dist: {
-                files: [{
+                files: [ {
                     expand: true,
                     dot: true,
                     cwd: 'assets',
@@ -259,15 +275,15 @@ module.exports = function (grunt) {
                         '*.{ico,png,txt}',
                         '.htaccess',
                         'images/**/*.{webp,gif}',
-                        'styles/fonts/{,*/}*.*',
+                        'styles/fonts/{,*/}*.*'
                     ]
                 }, {
                     expand: true,
                     dot: true,
                     cwd: 'views',
                     dest: 'dist/views/',
-                    src: '**/*.handlebars',
-                }]
+                    src: 'src/**/*.handlebars'
+                } ]
             },
             styles: {
                 expand: true,
@@ -275,7 +291,7 @@ module.exports = function (grunt) {
                 cwd: 'assets/styles',
                 dest: '.tmp/styles/',
                 src: '{,*/}*.css'
-            },
+            }
         },
 
         // Concurrent Config
@@ -285,13 +301,13 @@ module.exports = function (grunt) {
                 'svgmin',
                 'htmlmin'
             ]
-        },
+        }
     });
 
     // Register Tasks
     // default
-    grunt.registerTask('run', 'Start working on this project.', [
-        'jshint',
+    grunt.registerTask( 'run', 'Start working on this project.', [
+        'eslint',
         'sass:dev',
         'express:dev',
         'open:site',
@@ -300,26 +316,26 @@ module.exports = function (grunt) {
 
 
     // Restart
-    grunt.registerTask('dev', 'Restart the server.', [
-        'jshint',
+    grunt.registerTask( 'dev', 'Restart the server.', [
+        'eslint',
         'express:dev',
         'simplemocha',
         'watch'
     ]);
-    
+
 
     // Build
-    grunt.registerTask('build', 'Build production ready assets and views.', [
+    grunt.registerTask( 'build', 'Build production ready assets and views.', [
         'clean:dist',
         'concurrent:dist',
         'useminPrepare',
         'imagemin',
-        'concat',
+        'pwd',
         'cssmin',
         'uglify',
         'copy:dist',
         'rev',
-        'usemin',
+        'usemin'
     ]);
 
 };

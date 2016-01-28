@@ -1,14 +1,16 @@
-var faker = require( 'faker/locale/en_GB' )
+'use strict';
+
+var faker = require( 'faker/locale/en_GB' );
 
 exports = module.exports = {};
 
-exports.genDeveloperAtts = function( ) {
+exports.genDeveloperAtts = function() {
 
-	var developerAtts = {}
+	var developerAtts = {};
 
-	function getRandomArbitrary(min, max) {
-	    return Math.random() * (max - min) + min;
-	}
+	var getRandomArbitrary = function( min, max ) {
+	    return Math.random() * ( max - min ) + min;
+	};
 
 	developerAtts.username = faker.internet.userName();
 	developerAtts.url = faker.internet.url();
@@ -17,4 +19,4 @@ exports.genDeveloperAtts = function( ) {
 	developerAtts.score = getRandomArbitrary( 1 , 99 );
 
 	return developerAtts;
-}
+};

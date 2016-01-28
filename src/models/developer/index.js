@@ -1,4 +1,6 @@
-var helpers = require( '../../helpers/models.js')();
+'use strict';
+
+var helpers = require( '../../helpers/models.js' )();
 
 module.exports = function( mongoose ){
 	// Schema
@@ -13,5 +15,5 @@ module.exports = function( mongoose ){
 	// Instance Methods
 	schema.methods = require( './methods.js' )( mongoose );
 
-	return mongoose.model( 'Developer', schema );;	
-}
+	return mongoose.model( 'Developer', schema );
+};

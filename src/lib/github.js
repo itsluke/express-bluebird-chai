@@ -1,7 +1,9 @@
+'use strict';
+
 var GitHubApi = require( 'github' );
 var Promise = require( 'bluebird' );
 
-exports = module.exports = { }
+exports = module.exports = { };
 
 // init a new github api connection
 var github = new GitHubApi({
@@ -19,30 +21,29 @@ exports.getUser = function ( username, _mockedResponse ) {
 	// Creates a new bluebird.js Promise
 	return new Promise(  function ( resolve, reject ) {
 
-		function respond( err, res ) {
+		var respond = function ( err, res ) {
 			// if error occurs reject Promise
-			if ( err ) { reject ( err ); }
+			if ( err ) { reject( err ); }
 			else {
-				console.log ( 'user', res.items[0] );
-				resolve ( res.items[0] );
+				console.log( 'user', res.items[ 0 ]);
+				resolve( res.items[ 0 ]);
 			}
-		}
+		};
 
 		if( _mockedResponse !== undefined ){ respond( null, _mockedResponse ); }
 		// https://developer.github.com/v3/search/
-		else { github.search.users ( { q: username }, respond ); }
+		else { github.search.users({ q: username }, respond ); }
 
-	})
+	});
 };
 
 
 exports.createDeveloperFromResponse = function ( response ) {
 
 	// Creates a new bluebird.js Promise
-	return new Promise(  function ( resolve, reject ) {
+	return new Promise( function ( resolve, reject ) {
 
 
 
-	}
-
-}
+	});
+};

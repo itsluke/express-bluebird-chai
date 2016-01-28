@@ -1,3 +1,5 @@
+'use strict';
+
 module.exports = function( mongoose ){
 
 	return {
@@ -13,6 +15,6 @@ module.exports = function( mongoose ){
 		      });
 		    }
 		  });
-		},
-	}
-}
+		}
+	};
+};

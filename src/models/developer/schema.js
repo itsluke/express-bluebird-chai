@@ -1,3 +1,5 @@
+'use strict';
+
 module.exports = function( mongoose ){
 	return new mongoose.Schema({
 
@@ -6,5 +8,5 @@ module.exports = function( mongoose ){
 		avatar_url          :   { type: String },
 		score 		          :   { type: Number }
 
-	}, { timestamps: true } );
-}
+	}, { timestamps: true });
+};
