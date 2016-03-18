@@ -59,8 +59,8 @@ if ( process.env.NODE_ENV === 'production' ) {
   app.engine( 'handlebars', exphbs({
     // Default Layout and locate layouts and partials
     defaultLayout: 'main',
-    layoutsDir: 'views/layouts/',
-    partialsDir: 'views/partials/'
+    layoutsDir: 'src/views/layouts/',
+    partialsDir: 'src/views/partials/'
   }) );
 
   // Locate the views
@@ -81,6 +81,11 @@ app.set( 'view engine', 'handlebars' );
 
 app.get( '/', function( req, res, next ) {
   res.render( 'index' );
+});
+
+// Hello Page
+app.get( '/hello', function( req, res, next ) {
+  res.render( 'hello' );
 });
 
 

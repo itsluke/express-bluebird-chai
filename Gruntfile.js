@@ -9,9 +9,9 @@ module.exports = function ( grunt ) {
     grunt.initConfig({
         // Watch Config
         watch: {
-            files: [ 'src/views/**/*' ],
+            files: [ 'src/**/*' ],
             options: {
-                livereload: 38877
+                livereload: true
             },
             scripts: {
                 files: [
@@ -29,8 +29,8 @@ module.exports = function ( grunt ) {
             },
             html: {
                 files: [
-                    'src/views/styles/**/*.hbs',
-                    'src/views/styles/**/*.handlebars'
+                    'views/styles/**/*.hbs',
+                    'views/styles/**/*.handlebars'
                 ]
             },
             sass: {
@@ -81,7 +81,14 @@ module.exports = function ( grunt ) {
 
             all: { src: [ 'test/**/*.js' ] }
         },
-
+        // // uglify Config
+        // uglify: {
+        //   my_target: {
+        //     files: {
+        //       'dest/output.min.js': ['src/input1.js', 'src/input2.js']
+        //     }
+        //   }
+        // },
         // Clean Config
         clean: {
             dist: {
@@ -153,6 +160,7 @@ module.exports = function ( grunt ) {
             },
             dev: {
                 options: {
+                    livereload: true,
                     script: 'src/app.js'
                 }
             }
@@ -229,14 +237,14 @@ module.exports = function ( grunt ) {
             //
             //     <!-- build:css({.tmp,app}) styles/main.css -->
             //
-            // dist: {
-            //     files: {
-            //         'dist/assets/styles/main.css': [
-            //             '.tmp/styles/{,*/}*.css',
-            //             'assets/styles/{,*/}*.css'
-            //         ]
-            //     }
-            // }
+            dist: {
+                files: {
+                    'dist/assets/styles/main.css': [
+                        '.tmp/styles/{,*/}*.css',
+                        'assets/styles/{,*/}*.css'
+                    ]
+                }
+            }
         },
 
         // HTML Config
@@ -282,7 +290,7 @@ module.exports = function ( grunt ) {
                     dot: true,
                     cwd: 'views',
                     dest: 'dist/views/',
-                    src: 'src/**/*.handlebars'
+                    src: 'views/**/*.handlebars'
                 } ]
             },
             styles: {
@@ -325,17 +333,16 @@ module.exports = function ( grunt ) {
 
 
     // Build
-    grunt.registerTask( 'build', 'Build production ready assets and views.', [
-        'clean:dist',
-        'concurrent:dist',
-        'useminPrepare',
-        'imagemin',
-        'pwd',
-        'cssmin',
-        'uglify',
-        'copy:dist',
-        'rev',
-        'usemin'
-    ]);
+    // grunt.registerTask( 'build', 'Build production ready assets and views.', [
+    //     'clean:dist',
+    //     'concurrent:dist',
+    //     'useminPrepare',
+    //     'imagemin',
+    //     'cssmin',
+    //     'uglify',
+    //     'copy:dist',
+    //     'rev',
+    //     'usemin'
+    // ]);
 
 };
